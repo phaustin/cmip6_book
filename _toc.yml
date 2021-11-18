@@ -1,0 +1,9 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: installing
+chapters:
+- file: rundown
+- file: adding-cases
+- file: developers

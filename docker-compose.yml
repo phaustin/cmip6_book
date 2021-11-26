@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  cmip6_book:
+    image: httpd:2.4-alpine
+    container_name: cmip6_book
+    volumes:
+      - ${PWD}/_build/html:/usr/local/apache2/htdocs:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "traefik.enable=false"
+      - traefik.http.routers.store.rule=Host(`hub.eoastest.xyz`) && PathPrefix(`/cmip6`)
+      - traefik.http.routers.store.tls=true
+      - traefik.http.routers.store.tls.certresolver=lets-encrypt
+      - traefik.http.routers.store.service=cmip6_book
+      - traefik.http.services.drawdown.loadbalancer.server.port=80
+    restart: on-failure
+    networks:
+      - proxy_aug07
+
+
+networks:
+    proxy_aug07:
+      external: true
+

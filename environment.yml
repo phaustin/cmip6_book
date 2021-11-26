@@ -1,0 +1,27 @@
+name: cmip6
+channels:
+  - eoas_ubc
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.8
+  - importlib_resources
+  - click
+  - mamba
+  - conda-lock
+  - jupyter-book
+  - jupyter_sphinx
+  - sphinx>3.5
+  - jupyter
+  - jupytext
+  - ghp-import
+  - pip
+  - conda-build
+  - ghp-import
+  - conda-verify
+  - anaconda-client
+#conda-lock -f environment.yml -p linux-64
+
+
+
+

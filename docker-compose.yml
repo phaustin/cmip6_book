@@ -3,7 +3,7 @@ version: '3'
 services:
       
   cmip6_book:
-    image: httpd:2.4-alpine
+    image: httpd:2.4.51
     container_name: cmip6_book
     volumes:
       - ${PWD}/_build/html:/usr/local/apache2/htdocs:ro
@@ -24,20 +24,18 @@ services:
 
 
   plot_dir:
-    image: httpd:2.4-alpine
+    image: httpd:2.4.51
     container_name: plot_dir
     volumes:
       - ${PWD}/plot_dir:/usr/local/apache2/htdocs:ro
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.plot_dir.rule=Host(`hub.eoastest.xyz`) && PathPrefix(`/plot_dir{regex:$$|/.*}`)"
+      - "traefik.http.routers.plot_dir.rule=Host(`plots.eoastest.xyz`)" 
       - traefik.http.routers.plot_dir.tls=true
       - traefik.http.routers.plot_dir.tls.certresolver=lets-encrypt
       - traefik.http.routers.plot_dir.service=plot_dir
       - traefik.http.services.plot_dir.loadbalancer.server.port=80
-      - "traefik.http.routers.plot_dir.middlewares=plot_dir-stripprefix"
-      - "traefik.http.middlewares.plot_dir-stripprefix.stripprefix.prefixes=/plot_dir"
 
     restart: on-failure
     networks:

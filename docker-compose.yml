@@ -10,18 +10,19 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - traefik.enable=true
-      - "traefik.http.routers.cmip6_book.rule=Host(`hub.eoastest.xyz`) && PathPrefix(`/cmip6{regex:$$|/.*}`)"
+      - "traefik.http.routers.cmip6_book.rule=Host(`hub.eoastest.xyz`) && PathPrefix(`/cmip6`)"
       - traefik.http.routers.cmip6_book.tls=true
       - traefik.http.routers.cmip6_book.tls.certresolver=lets-encrypt
       - traefik.http.routers.cmip6_book.service=cmip6_book
       - traefik.http.services.cmip6_book.loadbalancer.server.port=80
-      - "traefik.http.routers.cmip6_book.middlewares=cmip6_book-stripprefix"
-      - "traefik.http.middlewares.cmip6_book-stripprefix.stripprefix.prefixes=/cmip6"
-
+      - traefik.http.middlewares.cmip6_book-strip-slash.redirectregex.regex=(^.*\/cmip6$$)
+      - traefik.http.middlewares.cmip6_book-strip-slash.redirectregex.replacement=$${1}/
+      - traefik.http.routers.cmip6_book.middlewares=cmip6_book-strip-slash
     restart: on-failure
     networks:
       - proxy_aug07
-
+      
+#https://community.traefik.io/t/middleware-to-add-the-if-needed/1895/19      
 
   plot_dir:
     image: httpd:2.4.51

@@ -96,6 +96,26 @@ def get_model_key():
             "controls": ["historical", "piControl"],
             "fullname": "CESM2",
         },
+        "CNRM-CM6-1-HR": {
+            "scenarios": ["ssp585", "ssp245"],
+            "controls": ["historical", "piControl"],
+            "fullname": "CNRM-CM6-1-HR",
+        },
+        "NorESM2-MM": {
+            "scenarios": ["ssp585", "ssp245"],
+            "controls": ["historical", "piControl"],
+            "fullname": "NorESM2-MM",
+        },
+        "CESM2-WACCM": {
+            "scenarios": ["ssp585", "ssp245"],
+            "controls": ["historical", "piControl"],
+            "fullname": "CESM2-WACCM",
+        },
+        "IITM-ESM": {
+            "scenarios": ["ssp585", "ssp245"],
+            "controls": ["historical", "piControl"],
+            "fullname": "IITM-ESM",
+        },
     }
     return model_keys
 

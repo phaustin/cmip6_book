@@ -1,0 +1,24 @@
+{
+    "case_name": "pi_bc_case_mult",
+    "var_id_list": [
+        "tas"
+    ],
+    "mod_id_list": [
+        "CNRM-CM6-1-HR",
+        "NorESM2-MM",
+        "CESM2-WACCM",
+        "IITM-ESM"
+    ],
+    "exp_id": "historical",
+    "members": 1,
+    "start_date": "1850-01",
+    "end_date": "1950-01",
+    "top_left": [
+        60,
+        -139.05
+    ],
+    "bottom_right": [
+        49,
+        -114.068333
+    ]
+}

@@ -92,12 +92,31 @@ def write_pi_bc_case():
 
     get_case_data(col, data, write_path=(case_file_path))
 
+def write_pi_bc_case_mult():
+    write_case_definition(
+        "pi_bc_case_mult",
+        ["tas"],
+        ["CNRM-CM6-1-HR", "NorESM2-MM", "CESM2-WACCM", "IITM-ESM"],
+        "historical",
+        1,
+        "1850-01",
+        "1950-01",
+        (60, -139.05),
+        (49, -114.068333),
+        (case_file_path + "pi_bc_case_mult.json"),
+    )
+
+    with open((case_file_path + "pi_bc_case_mult.json")) as f:
+        data = json.load(f)
+
+    get_case_data(col, data, write_path=(case_file_path))
 
 def main():
     # write_bc_case()
     # write_bc_case_mult()
     # write_australia_case()
-    write_pi_bc_case()
+    # write_pi_bc_case()
+    write_pi_bc_case_mult()
 
 
 if __name__ == "__main__":

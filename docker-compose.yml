@@ -15,8 +15,9 @@ services:
       - traefik.http.routers.cmip6_book.tls.certresolver=lets-encrypt
       - traefik.http.routers.cmip6_book.service=cmip6_book
       - traefik.http.services.cmip6_book.loadbalancer.server.port=80
-      - "traefik.http.routers.cmip6_book.middlewares=cmip6_book-stripprefix"
+      - "traefik.http.routers.cmip6_book.middlewares=cmip6_chain,cmip6Auth@file"
       - "traefik.http.middlewares.cmip6_book-stripprefix.stripprefix.prefixes=/cmip6"
+      - "traefik.http.middlewares.cmip6_chain.chain.middlewares=strip-prefix-start@file,strip-prefix-end@file,cmip6_book-stripprefix"
     restart: on-failure
     networks:
       - proxy_aug07

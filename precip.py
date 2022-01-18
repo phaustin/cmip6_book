@@ -95,9 +95,26 @@ monthly_table = "Amon" #monthly atmospheric data
 #2015-01 -> 2100-12
 
 
+# %% [markdown]
+# ## checkpoint the dataframes
+#
+# If do_read=False, fetch the xarray datasets and pull the pr field
+#
+# If do_read=True, skip this step and read from parquet files
+
 # %%
-avg_df_ssp585 = get_precip_df(df, var_id, mod_id, exp_id[0], members, monthly_table)
-avg_df_ssp245 = get_precip_df(df, var_id, mod_id, exp_id[1], members, monthly_table)
+do_read=True
+names = ['avg_df_ssp585','avg_df_ssp245']
+df_dict=dict()
+if do_read:
+    for the_name in names:
+        the_file = f"{the_name}.pq"
+        df_dict[the_name]=pd.read_parquet(the_file)
+else:
+    for the_name, the_exp in zip(names,exp_id):
+        df_dict[the_name]= get_precip_df(df, var_id, mod_id, the_exp, members, monthly_table)
+        the_file = f"{the_name}.pq"
+        df_dict[the_name].to_parquet(the_file)
 
 
 # %% [markdown]
@@ -110,6 +127,7 @@ def find_month(row):
     row['dates']=row.name
     return row
 
+avg_df_ssp585 = df_dict['avg_df_ssp585']
 new_df = avg_df_ssp585.apply(find_month,axis=1)
 
 new_df.head()
